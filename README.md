@@ -9,6 +9,7 @@
     <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
     <img src="https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLite" />
     <img src="https://img.shields.io/badge/Open_Source-4CAF50?style=for-the-badge&logo=open-source-initiative&logoColor=white" alt="Open Source" />
+    <a href="https://doi.org/10.5281/zenodo.22969593"><img src="https://img.shields.io/badge/DOI-10.5281%2Fzenodo.22969593-blue?style=for-the-badge&logo=zenodo&logoColor=white" alt="DOI" /></a>
   </p>
   <p><i>An open-source productivity engine, built by developers, for everyone.</i></p>
 </div>

@@ -16,3 +16,7 @@ keywords:
   - productivity
   - decision-fatigue
 license: MIT
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.22969593"
+    description: "Zenodo archive of the LevelUp source code"
