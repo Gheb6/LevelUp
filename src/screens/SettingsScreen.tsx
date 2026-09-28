@@ -48,7 +48,7 @@ export default function SettingsScreen() {
         if (permissions.granted) {
           const uri = await FileSystem.StorageAccessFramework.createFileAsync(permissions.directoryUri, 'levelup_backup.json', 'application/json');
           await FileSystem.writeAsStringAsync(uri, jsonStr, { encoding: FileSystem.EncodingType.UTF8 });
-          Alert.alert('Success', 'Backup exported successfully!');
+          Alert.alert(t('settings.exportSuccessTitle'), t('settings.exportSuccessMsg'));
           return;
         }
       }
@@ -59,7 +59,7 @@ export default function SettingsScreen() {
       await Sharing.shareAsync(fileUri, { mimeType: 'application/json', dialogTitle: 'LevelUp Backup' });
 
     } catch (e) {
-      Alert.alert('Error', 'Failed to export data');
+      Alert.alert(t('settings.exportErrorTitle'), t('settings.exportErrorMsg'));
     }
   };
 
@@ -103,7 +103,7 @@ export default function SettingsScreen() {
               throw new Error('Invalid format');
             }
           } catch (e) {
-            Alert.alert('Error', (t('settings.importError') || 'Failed to import data') + ': ' + String(e));
+            Alert.alert(t('settings.exportErrorTitle'), (t('settings.importError') || 'Failed to import data') + ': ' + String(e));
           } finally {
             setIsImporting(false);
           }
