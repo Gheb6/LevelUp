@@ -3,6 +3,7 @@ message: "If you use this software or reference its Agent-Driven Architecture, p
 authors:
   - family-names: "Zanotti"
     given-names: "Giovanni"
+    orcid: "https://orcid.org/0009-0000-8900-9586"
 title: "LevelUp: Defeating Decision Fatigue via Gamified Time Management"
 version: 1.1.1
 date-released: "2026-09-25"
