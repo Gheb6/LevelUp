@@ -1,5 +1,6 @@
 import { t } from "../utils/i18n";
-import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
+import React, { createContext, useContext, useEffect, useState, useCallback, useRef } from 'react';
+import { AppState, type AppStateStatus } from 'react-native';
 import type { Category, BlockTemplate, ScheduledBlock, WeeklyPlan, DayOfWeek } from '../types';
 import { generateId } from '../utils/id';
 import {
@@ -35,11 +36,11 @@ const migrateEmoji = (emoji: string) => {
   return map[emoji] || (emoji.match(/[\w-]/) ? emoji : 'shape'); // default icon if it's an unrecognized emoji
 };
 
-
 interface PlannerState {
   categories: Category[];
   templates: BlockTemplate[];
   currentPlan: WeeklyPlan;
+  todayPlan: WeeklyPlan;
   currentWeekId: string;
   hasPreviousWeekBlocks: boolean;
   isLoading: boolean;
@@ -76,18 +77,55 @@ export function PlannerProvider({ children }: { children: React.ReactNode }) {
   const [categories, setCategories] = useState<Category[]>(DEFAULT_CATEGORIES);
   const [templates, setTemplates] = useState<BlockTemplate[]>([]);
   const [currentWeekId, setCurrentWeekId] = useState(getCurrentWeekId());
-  const [currentPlan, setCurrentPlan] = useState<WeeklyPlan>({ weekId: currentWeekId, blocks: [] });
+  const [realWeekId, setRealWeekId] = useState(getCurrentWeekId());
+  const [plans, setPlans] = useState<Record<string, WeeklyPlan>>({});
   const [hasPreviousWeekBlocks, setHasPreviousWeekBlocks] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const savedPlansRef = useRef<Record<string, WeeklyPlan>>({});
 
-  // Load data on startup
+  const currentPlan = plans[currentWeekId] || { weekId: currentWeekId, blocks: [] };
+  const todayPlan = plans[realWeekId] || { weekId: realWeekId, blocks: [] };
+
+  useEffect(() => {
+    const handleAppStateChange = (nextState: AppStateStatus) => {
+      if (nextState === 'active') {
+        const currentReal = getCurrentWeekId();
+        setRealWeekId((prev) => (prev !== currentReal ? currentReal : prev));
+      }
+    };
+    const sub = AppState.addEventListener('change', handleAppStateChange);
+    return () => sub.remove();
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const currentReal = getCurrentWeekId();
+      setRealWeekId((prev) => (prev !== currentReal ? currentReal : prev));
+    }, 60000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (!plans[realWeekId] && !isLoading) {
+      loadWeeklyPlan(realWeekId).then((plan) => {
+        setPlans((prev) => ({
+          ...prev,
+          [realWeekId]: prev[realWeekId] ?? (plan || { weekId: realWeekId, blocks: [] }),
+        }));
+      }).catch(console.error);
+    }
+  }, [realWeekId, plans, isLoading]);
+
   const refreshData = useCallback(async () => {
     setIsLoading(true);
     try {
-      const [cats, tmpl, plan, previousPlan] = await Promise.all([
+      const realWeek = getCurrentWeekId();
+      setRealWeekId(realWeek);
+      const [cats, tmpl, currentPlanLoaded, realPlanLoaded, previousPlan] = await Promise.all([
         loadCategories(),
         loadTemplates(),
         loadWeeklyPlan(currentWeekId),
+        currentWeekId === realWeek ? Promise.resolve(null) : loadWeeklyPlan(realWeek),
         loadWeeklyPlan(getPrevWeekId(currentWeekId)),
       ]);
       if (cats.length > 0) {
@@ -97,7 +135,15 @@ export function PlannerProvider({ children }: { children: React.ReactNode }) {
         setCategories(DEFAULT_CATEGORIES);
       }
       setTemplates(tmpl);
-      if (plan) setCurrentPlan(plan);
+      const newPlans: Record<string, WeeklyPlan> = {};
+      newPlans[currentWeekId] = currentPlanLoaded || { weekId: currentWeekId, blocks: [] };
+      if (realWeek !== currentWeekId) {
+        newPlans[realWeek] = realPlanLoaded || { weekId: realWeek, blocks: [] };
+      }
+      setPlans((prev) => ({
+        ...newPlans,
+        ...prev,
+      }));
       setHasPreviousWeekBlocks((previousPlan?.blocks.length ?? 0) > 0);
     } catch (e) {
       console.error('Errore caricamento planner:', e);
@@ -119,7 +165,10 @@ export function PlannerProvider({ children }: { children: React.ReactNode }) {
         loadWeeklyPlan(getPrevWeekId(newWeekId)),
       ]);
       setCurrentWeekId(newWeekId);
-      setCurrentPlan(plan || { weekId: newWeekId, blocks: [] });
+      setPlans((prev) => ({
+        ...prev,
+        [newWeekId]: prev[newWeekId] ?? (plan || { weekId: newWeekId, blocks: [] }),
+      }));
       setHasPreviousWeekBlocks((previousPlan?.blocks.length ?? 0) > 0);
     } catch (e) {
       console.error('Errore cambio settimana:', e);
@@ -143,9 +192,14 @@ export function PlannerProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (!isLoading) {
-      saveWeeklyPlan(currentPlan).catch(console.error);
+      Object.entries(plans).forEach(([weekId, plan]) => {
+        if (savedPlansRef.current[weekId] !== plan) {
+          saveWeeklyPlan(plan).catch(console.error);
+          savedPlansRef.current[weekId] = plan;
+        }
+      });
     }
-  }, [currentPlan, isLoading]);
+  }, [plans, isLoading]);
 
   // ── Actions ──
 
@@ -169,10 +223,16 @@ export function PlannerProvider({ children }: { children: React.ReactNode }) {
     setCategories((prev) => prev.filter((c) => c.id !== id));
     setTemplates((prev) => prev.filter(t => t.categoryId !== id));
     
-    setCurrentPlan(plan => ({
-      ...plan,
-      blocks: plan.blocks.filter(b => b.oneOffCategoryId !== id && (b.templateId === undefined || !templatesToDelete.includes(b.templateId)))
-    }));
+    setPlans(prev => {
+      const next: Record<string, WeeklyPlan> = {};
+      for (const [wId, plan] of Object.entries(prev)) {
+        next[wId] = {
+          ...plan,
+          blocks: plan.blocks.filter(b => b.oneOffCategoryId !== id && (b.templateId === undefined || !templatesToDelete.includes(b.templateId)))
+        };
+      }
+      return next;
+    });
   }, [templates]);
 
   const editCategory = useCallback((id: string, updates: Partial<Category>) => {
@@ -203,16 +263,22 @@ export function PlannerProvider({ children }: { children: React.ReactNode }) {
 
   const deleteTemplate = useCallback((id: string) => {
     setTemplates((prev) => prev.filter((t) => t.id !== id));
-    // Also remove scheduled blocks with this template
-    setCurrentPlan((prev) => ({
-      ...prev,
-      blocks: prev.blocks.filter((b) => b.templateId !== id),
-    }));
+    setPlans((prev) => {
+      const next: Record<string, WeeklyPlan> = {};
+      for (const [wId, plan] of Object.entries(prev)) {
+        next[wId] = {
+          ...plan,
+          blocks: plan.blocks.filter((b) => b.templateId !== id),
+        };
+      }
+      return next;
+    });
   }, []);
 
   const scheduleBlock = useCallback((templateId: string, day: DayOfWeek, startTime: string, customDuration?: number) => {
     const newId = generateId();
-    setCurrentPlan((prev) => {
+    setPlans((prev) => {
+      const plan = prev[currentWeekId] || { weekId: currentWeekId, blocks: [] };
       const newBlock: ScheduledBlock = {
         id: newId,
         templateId,
@@ -223,7 +289,10 @@ export function PlannerProvider({ children }: { children: React.ReactNode }) {
       };
       return {
         ...prev,
-        blocks: [...prev.blocks, newBlock],
+        [currentWeekId]: {
+          ...plan,
+          blocks: [...plan.blocks, newBlock],
+        },
       };
     });
 
@@ -233,18 +302,26 @@ export function PlannerProvider({ children }: { children: React.ReactNode }) {
     if (template && cat) {
       createCalendarEvent(template.name, day, startTime, customDuration ?? template.durationHours, cat.name, cat.color).then(eventId => {
         if (eventId) {
-          setCurrentPlan(prev => ({
-            ...prev,
-            blocks: prev.blocks.map(b => b.id === newId ? { ...b, calendarEventId: eventId } : b)
-          }));
+          setPlans(prev => {
+            const plan = prev[currentWeekId];
+            if (!plan) return prev;
+            return {
+              ...prev,
+              [currentWeekId]: {
+                ...plan,
+                blocks: plan.blocks.map(b => b.id === newId ? { ...b, calendarEventId: eventId } : b)
+              }
+            };
+          });
         }
       }).catch(console.error);
     }
-  }, [templates, categories]);
+  }, [currentWeekId, templates, categories]);
 
   const scheduleOneOffBlock = useCallback((name: string, categoryId: string, durationHours: number, day: DayOfWeek, startTime: string) => {
     const newId = generateId();
-    setCurrentPlan((prev) => {
+    setPlans((prev) => {
+      const plan = prev[currentWeekId] || { weekId: currentWeekId, blocks: [] };
       const newBlock: ScheduledBlock = {
         id: newId,
         day,
@@ -257,7 +334,10 @@ export function PlannerProvider({ children }: { children: React.ReactNode }) {
       };
       return {
         ...prev,
-        blocks: [...prev.blocks, newBlock],
+        [currentWeekId]: {
+          ...plan,
+          blocks: [...plan.blocks, newBlock],
+        },
       };
     });
 
@@ -266,32 +346,49 @@ export function PlannerProvider({ children }: { children: React.ReactNode }) {
     if (cat) {
       createCalendarEvent(name, day, startTime, durationHours, cat.name, cat.color).then(eventId => {
         if (eventId) {
-          setCurrentPlan(prev => ({
-            ...prev,
-            blocks: prev.blocks.map(b => b.id === newId ? { ...b, calendarEventId: eventId } : b)
-          }));
+          setPlans(prev => {
+            const plan = prev[currentWeekId];
+            if (!plan) return prev;
+            return {
+              ...prev,
+              [currentWeekId]: {
+                ...plan,
+                blocks: plan.blocks.map(b => b.id === newId ? { ...b, calendarEventId: eventId } : b)
+              }
+            };
+          });
         }
       }).catch(console.error);
     }
-  }, [categories]);
+  }, [currentWeekId, categories]);
 
   const unscheduleBlock = useCallback((blockId: string) => {
-    setCurrentPlan((prev) => {
-      const block = prev.blocks.find(b => b.id === blockId);
-      if (block?.calendarEventId) {
-        deleteCalendarEvent(block.calendarEventId).catch(console.error);
+    setPlans((prev) => {
+      let found = false;
+      const next: Record<string, WeeklyPlan> = {};
+      for (const [wId, plan] of Object.entries(prev)) {
+        const block = plan.blocks.find((b) => b.id === blockId);
+        if (block) {
+          found = true;
+          if (block.calendarEventId) {
+            deleteCalendarEvent(block.calendarEventId).catch(console.error);
+          }
+          next[wId] = {
+            ...plan,
+            blocks: plan.blocks.filter((b) => b.id !== blockId),
+          };
+        } else {
+          next[wId] = plan;
+        }
       }
-      return {
-        ...prev,
-        blocks: prev.blocks.filter((b) => b.id !== blockId),
-      };
+      return found ? next : prev;
     });
   }, []);
 
   const copyPreviousWeek = useCallback(async () => {
     try {
       const prevWeekId = getPrevWeekId(currentWeekId);
-      const prevPlan = await loadWeeklyPlan(prevWeekId);
+      const prevPlan = plans[prevWeekId] || await loadWeeklyPlan(prevWeekId);
       if (!prevPlan || prevPlan.blocks.length === 0) return;
 
       const newBlocks: ScheduledBlock[] = [];
@@ -315,48 +412,77 @@ export function PlannerProvider({ children }: { children: React.ReactNode }) {
         // Create events on the new calendar in background
         createCalendarEvent(template.name, b.day, b.startTime, b.customDuration ?? template.durationHours, cat.name, cat.color).then(eventId => {
           if (eventId) {
-            setCurrentPlan(prev => ({
-              ...prev,
-              blocks: prev.blocks.map(blk => blk.id === newId ? { ...blk, calendarEventId: eventId } : blk)
-            }));
+            setPlans(prev => {
+              const plan = prev[currentWeekId];
+              if (!plan) return prev;
+              return {
+                ...prev,
+                [currentWeekId]: {
+                  ...plan,
+                  blocks: plan.blocks.map(blk => blk.id === newId ? { ...blk, calendarEventId: eventId } : blk)
+                }
+              };
+            });
           }
         }).catch(console.error);
       }
 
-      setCurrentPlan(prev => ({
-        ...prev,
-        blocks: [...prev.blocks, ...newBlocks],
-      }));
+      setPlans(prev => {
+        const plan = prev[currentWeekId] || { weekId: currentWeekId, blocks: [] };
+        return {
+          ...prev,
+          [currentWeekId]: {
+            ...plan,
+            blocks: [...plan.blocks, ...newBlocks],
+          },
+        };
+      });
     } catch (e) {
       console.error('Errore copia settimana precedente:', e);
     }
-  }, [currentWeekId, templates, categories]);
+  }, [currentWeekId, plans, templates, categories]);
 
   const updateBlockDescription = useCallback((blockId: string, desc: string) => {
-    setCurrentPlan((prev) => {
-      const block = prev.blocks.find(b => b.id === blockId);
-      if (block?.calendarEventId) {
-        updateCalendarEventDescription(block.calendarEventId, desc);
+    setPlans((prev) => {
+      let found = false;
+      const next: Record<string, WeeklyPlan> = {};
+      for (const [wId, plan] of Object.entries(prev)) {
+        const block = plan.blocks.find((b) => b.id === blockId);
+        if (block) {
+          found = true;
+          if (block.calendarEventId) {
+            updateCalendarEventDescription(block.calendarEventId, desc);
+          }
+          next[wId] = {
+            ...plan,
+            blocks: plan.blocks.map((b) => (b.id === blockId ? { ...b, description: desc } : b)),
+          };
+        } else {
+          next[wId] = plan;
+        }
       }
-      return {
-        ...prev,
-        blocks: prev.blocks.map(b => b.id === blockId ? { ...b, description: desc } : b)
-      };
+      return found ? next : prev;
     });
   }, []);
 
   const toggleBlockDone = useCallback((blockId: string) => {
-    setCurrentPlan((prev) => {
-      const newBlocks = prev.blocks.map((b) => {
-        if (b.id === blockId) {
-          const isNowDone = !b.done;
-          // We don't have access to PeaksContext here directly to call addCompletedHours.
-          // We can let the component doing the toggle call addCompletedHours!
-          return { ...b, done: isNowDone };
+    setPlans((prev) => {
+      let found = false;
+      const next: Record<string, WeeklyPlan> = {};
+      for (const [wId, plan] of Object.entries(prev)) {
+        if (plan.blocks.some((b) => b.id === blockId)) {
+          found = true;
+          next[wId] = {
+            ...plan,
+            blocks: plan.blocks.map((b) =>
+              b.id === blockId ? { ...b, done: !b.done } : b
+            ),
+          };
+        } else {
+          next[wId] = plan;
         }
-        return b;
-      });
-      return { ...prev, blocks: newBlocks };
+      }
+      return found ? next : prev;
     });
   }, []);
 
@@ -372,8 +498,9 @@ export function PlannerProvider({ children }: { children: React.ReactNode }) {
     const cat = categories.find((c) => c.id === categoryId);
     let scheduled = 0;
     let completed = 0;
+    const plan = plans[currentWeekId] || { weekId: currentWeekId, blocks: [] };
 
-    for (const block of currentPlan.blocks) {
+    for (const block of plan.blocks) {
       const template = templates.find((t) => t.id === block.templateId);
       if (template?.categoryId === categoryId) {
         scheduled += block.customDuration ?? template.durationHours;
@@ -386,7 +513,7 @@ export function PlannerProvider({ children }: { children: React.ReactNode }) {
       completed,
       target: cat?.targetHoursPerWeek ?? 0,
     };
-  }, [categories, templates, currentPlan]);
+  }, [categories, templates, plans, currentWeekId]);
 
   return (
     <PlannerContext.Provider
@@ -394,11 +521,12 @@ export function PlannerProvider({ children }: { children: React.ReactNode }) {
         categories,
         templates,
         currentPlan,
+        todayPlan,
         currentWeekId,
         hasPreviousWeekBlocks,
         isLoading,
         changeWeek,
-    refreshData,
+        refreshData,
         addCategory,
         editCategory,
         deleteCategory,
