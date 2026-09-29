@@ -1,5 +1,6 @@
 import { t } from "../utils/i18n";
-import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
+import React, { createContext, useContext, useEffect, useState, useCallback, useRef } from 'react';
+import { AppState, type AppStateStatus } from 'react-native';
 import type { Category, BlockTemplate, ScheduledBlock, WeeklyPlan, DayOfWeek } from '../types';
 import { generateId } from '../utils/id';
 import {
@@ -76,23 +77,50 @@ export function PlannerProvider({ children }: { children: React.ReactNode }) {
   const [categories, setCategories] = useState<Category[]>(DEFAULT_CATEGORIES);
   const [templates, setTemplates] = useState<BlockTemplate[]>([]);
   const [currentWeekId, setCurrentWeekId] = useState(getCurrentWeekId());
-  const [plans, setPlans] = useState<Record<string, WeeklyPlan>>(() => {
-    const initialWeekId = getCurrentWeekId();
-    return {
-      [initialWeekId]: { weekId: initialWeekId, blocks: [] },
-    };
-  });
+  const [realWeekId, setRealWeekId] = useState(getCurrentWeekId());
+  const [plans, setPlans] = useState<Record<string, WeeklyPlan>>({});
   const [hasPreviousWeekBlocks, setHasPreviousWeekBlocks] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const savedPlansRef = useRef<Record<string, WeeklyPlan>>({});
 
-  const realWeekId = getCurrentWeekId();
   const currentPlan = plans[currentWeekId] || { weekId: currentWeekId, blocks: [] };
   const todayPlan = plans[realWeekId] || { weekId: realWeekId, blocks: [] };
+
+  useEffect(() => {
+    const handleAppStateChange = (nextState: AppStateStatus) => {
+      if (nextState === 'active') {
+        const currentReal = getCurrentWeekId();
+        setRealWeekId((prev) => (prev !== currentReal ? currentReal : prev));
+      }
+    };
+    const sub = AppState.addEventListener('change', handleAppStateChange);
+    return () => sub.remove();
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const currentReal = getCurrentWeekId();
+      setRealWeekId((prev) => (prev !== currentReal ? currentReal : prev));
+    }, 60000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (!plans[realWeekId] && !isLoading) {
+      loadWeeklyPlan(realWeekId).then((plan) => {
+        setPlans((prev) => ({
+          ...prev,
+          [realWeekId]: prev[realWeekId] ?? (plan || { weekId: realWeekId, blocks: [] }),
+        }));
+      }).catch(console.error);
+    }
+  }, [realWeekId, plans, isLoading]);
 
   const refreshData = useCallback(async () => {
     setIsLoading(true);
     try {
       const realWeek = getCurrentWeekId();
+      setRealWeekId(realWeek);
       const [cats, tmpl, currentPlanLoaded, realPlanLoaded, previousPlan] = await Promise.all([
         loadCategories(),
         loadTemplates(),
@@ -112,7 +140,10 @@ export function PlannerProvider({ children }: { children: React.ReactNode }) {
       if (realWeek !== currentWeekId) {
         newPlans[realWeek] = realPlanLoaded || { weekId: realWeek, blocks: [] };
       }
-      setPlans(newPlans);
+      setPlans((prev) => ({
+        ...newPlans,
+        ...prev,
+      }));
       setHasPreviousWeekBlocks((previousPlan?.blocks.length ?? 0) > 0);
     } catch (e) {
       console.error('Errore caricamento planner:', e);
@@ -161,8 +192,11 @@ export function PlannerProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (!isLoading) {
-      Object.values(plans).forEach((plan) => {
-        saveWeeklyPlan(plan).catch(console.error);
+      Object.entries(plans).forEach(([weekId, plan]) => {
+        if (savedPlansRef.current[weekId] !== plan) {
+          saveWeeklyPlan(plan).catch(console.error);
+          savedPlansRef.current[weekId] = plan;
+        }
       });
     }
   }, [plans, isLoading]);
