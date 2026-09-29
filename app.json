@@ -7,15 +7,21 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "buildNumber": "3"
     },
     "android": {
       "package": "com.gizano.levelup",
+      "versionCode": 3,
       "adaptiveIcon": {
         "backgroundColor": "#071A2F",
         "foregroundImage": "./assets/icon.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "android.permission.READ_CALENDAR",
+        "android.permission.WRITE_CALENDAR"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -31,6 +37,11 @@
       ],
       "expo-sharing",
       "expo-splash-screen"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "63ecf766-7325-45cf-8fbd-861a0dd5fca7"
+      }
+    }
   }
 }
