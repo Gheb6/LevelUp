@@ -181,7 +181,7 @@ function RootNavigator() {
         <View style={[StyleSheet.absoluteFill, { backgroundColor: colors.overlay, justifyContent: 'center', alignItems: 'center' }]}>
           <ActivityIndicator size="large" color={colors.primary} />
           <Text style={{ marginTop: 20, color: '#fff', fontSize: 16, fontWeight: 'bold' }}>
-            {locale === 'it' ? 'Cambio lingua...' : 'Changing language...'}
+            {t('settings.changingLanguage')}
           </Text>
         </View>
       )}
