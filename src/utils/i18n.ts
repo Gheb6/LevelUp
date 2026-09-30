@@ -130,7 +130,8 @@ const translations = {
       categoryBtn: 'Category',
       blockBtn: '🧩 Block',
       archiveCategoryTitle: 'Archive Category',
-      archiveCategoryMsg: 'Are you sure you want to archive this category? It will no longer be visible among active categories, but historical data will be preserved.',
+      archiveCategoryMsg:
+        'Are you sure you want to archive this category? It will no longer be visible among active categories, but historical data will be preserved.',
       archive: 'Archive',
       selectIcon: 'Select an icon',
       searchIcon: 'Search icon...',
@@ -141,9 +142,11 @@ const translations = {
       archiveBlockMsg: 'Are you sure you want to archive',
       archiveBtn: 'Archive',
       deleteCategoryTitle: 'Delete Category Permanently',
-      deleteCategoryMsg: 'WARNING: Permanently deleting this category will result in the irreversible loss of all historical data (completed hours/meters) associated with it. Are you sure you want to proceed?',
+      deleteCategoryMsg:
+        'WARNING: Permanently deleting this category will result in the irreversible loss of all historical data (completed hours/meters) associated with it. Are you sure you want to proceed?',
       deleteBlockTitlePerm: 'Delete Block Permanently',
-      deleteBlockMsgPerm: 'WARNING: Permanently deleting this block will result in the irreversible loss of all historical data associated with it. Are you sure you want to proceed?',
+      deleteBlockMsgPerm:
+        'WARNING: Permanently deleting this block will result in the irreversible loss of all historical data associated with it. Are you sure you want to proceed?',
     },
     today: {
       title: 'Today',
@@ -158,14 +161,15 @@ const translations = {
       emptyToday: 'No blocks for today. Go to Planner!',
       completedToday: 'hours completed today',
       yourDay: 'Your day',
-      todayProgress: 'Today\'s Progress',
+      todayProgress: "Today's Progress",
     },
     settings: {
       langTitle: 'Language',
       selectLanguage: 'Select Language',
       changingLanguage: 'Changing language...',
       backupTitle: 'Backup & Data',
-      backupDesc: 'Export all your data (Peaks, Categories, Blocks) in JSON format. You can save it to Google Drive or email it to yourself as a safety backup.',
+      backupDesc:
+        'Export all your data (Peaks, Categories, Blocks) in JSON format. You can save it to Google Drive or email it to yourself as a safety backup.',
       exportBtn: 'Export JSON Backup',
       importBtn: 'Import JSON Backup',
       importing: 'Importing...',
@@ -178,7 +182,8 @@ const translations = {
       exportErrorTitle: 'Error',
       exportErrorMsg: 'Failed to export data.',
       aboutTitle: 'About LevelUp',
-      aboutDesc1: 'LevelUp was born from a simple need: eliminating decision fatigue in free time. The mountain climbing metaphor helps tracking long-term goals (Peaks) and breaking them down into actionable steps (Camps).',
+      aboutDesc1:
+        'LevelUp was born from a simple need: eliminating decision fatigue in free time. The mountain climbing metaphor helps tracking long-term goals (Peaks) and breaking them down into actionable steps (Camps).',
       aboutDesc2: 'This app is 100% Open Source and built by developers, for everyone.',
       starGithub: 'Star on GitHub',
       submitIssue: 'Submit an Issue',
@@ -187,13 +192,17 @@ const translations = {
     },
     onboarding: {
       slide1Title: 'Peaks & Goals',
-      slide1Desc: 'Track your long-term goals. Break them into Camps (milestones) and climb to the top! At the top you see your Total Altitude and Day Streak.',
+      slide1Desc:
+        'Track your long-term goals. Break them into Camps (milestones) and climb to the top! At the top you see your Total Altitude and Day Streak.',
       slide2Title: 'Blocks & Categories',
-      slide2Desc: 'Here you define your weekly activities. Group them into Categories and create Blocks for specific tasks. Tap them to edit or archive.',
+      slide2Desc:
+        'Here you define your weekly activities. Group them into Categories and create Blocks for specific tasks. Tap them to edit or archive.',
       slide3Title: 'The Planner',
-      slide3Desc: 'Schedule your blocks into a weekly grid. Tap a time slot to add a block with an optional description. Use "Copy Previous Week" to save time!',
+      slide3Desc:
+        'Schedule your blocks into a weekly grid. Tap a time slot to add a block with an optional description. Use "Copy Previous Week" to save time!',
       slide4Title: 'Your Day (Today)',
-      slide4Desc: 'Every morning, open Today and just follow the plan. Complete your scheduled blocks to gain altitude and conquer your peaks!',
+      slide4Desc:
+        'Every morning, open Today and just follow the plan. Complete your scheduled blocks to gain altitude and conquer your peaks!',
       slide5Title: 'Settings & Data',
       slide5Desc: 'Change language or export/import your JSON backup to never lose your progress.',
       dismissBtn: 'Start Climbing',
@@ -306,9 +315,10 @@ const translations = {
       categoryBtn: 'Categoria',
       blockBtn: '🧩 Blocco',
       archiveCategoryTitle: 'Archivia Categoria',
-      archiveCategoryMsg: 'Sei sicuro di voler archiviare questa categoria? Non sarà più visibile tra le categorie attive, ma lo storico verrà conservato.',
+      archiveCategoryMsg:
+        'Sei sicuro di voler archiviare questa categoria? Non sarà più visibile tra le categorie attive, ma lo storico verrà conservato.',
       archive: 'Archivio',
-      selectIcon: 'Seleziona un\'icona',
+      selectIcon: "Seleziona un'icona",
       searchIcon: 'Cerca icona...',
       iconLabel: 'Icona',
       tapToChange: 'Tocca per cambiare...',
@@ -317,9 +327,11 @@ const translations = {
       archiveBlockMsg: 'Sei sicuro di voler archiviare',
       archiveBtn: 'Archivia',
       deleteCategoryTitle: 'Elimina Definitivamente Categoria',
-      deleteCategoryMsg: 'ATTENZIONE: Eliminando definitivamente questa categoria perderai in modo irreversibile tutto lo storico (ore completate) ad essa associato. Sei sicuro di voler procedere?',
+      deleteCategoryMsg:
+        'ATTENZIONE: Eliminando definitivamente questa categoria perderai in modo irreversibile tutto lo storico (ore completate) ad essa associato. Sei sicuro di voler procedere?',
       deleteBlockTitlePerm: 'Elimina Definitivamente Blocco',
-      deleteBlockMsgPerm: 'ATTENZIONE: Eliminando definitivamente questo blocco perderai in modo irreversibile tutto lo storico ad esso associato. Sei sicuro di voler procedere?',
+      deleteBlockMsgPerm:
+        'ATTENZIONE: Eliminando definitivamente questo blocco perderai in modo irreversibile tutto lo storico ad esso associato. Sei sicuro di voler procedere?',
     },
     today: {
       title: 'Oggi',
@@ -341,20 +353,22 @@ const translations = {
       selectLanguage: 'Seleziona lingua',
       changingLanguage: 'Cambio lingua...',
       backupTitle: 'Backup & Dati',
-      backupDesc: 'Esporta tutti i tuoi dati (Vette, Categorie, Blocchi) in formato JSON. Potrai salvarli su Google Drive o inviarteli per email come backup di sicurezza.',
+      backupDesc:
+        'Esporta tutti i tuoi dati (Vette, Categorie, Blocchi) in formato JSON. Potrai salvarli su Google Drive o inviarteli per email come backup di sicurezza.',
       exportBtn: 'Esporta Backup JSON',
       importBtn: 'Importa Backup JSON',
       importing: 'Importazione...',
       importConfirmTitle: 'Importa Backup',
       importConfirmMsg: 'Sei sicuro? Questa operazione SOVRASCRIVERÀ tutti i tuoi dati correnti.',
       importSuccess: 'Backup importato con successo!',
-      importError: 'Errore durante l\'importazione del backup.',
+      importError: "Errore durante l'importazione del backup.",
       exportSuccessTitle: 'Successo',
       exportSuccessMsg: 'Backup esportato con successo!',
       exportErrorTitle: 'Errore',
-      exportErrorMsg: 'Errore durante l\'esportazione del backup.',
+      exportErrorMsg: "Errore durante l'esportazione del backup.",
       aboutTitle: 'About LevelUp',
-      aboutDesc1: 'LevelUp nasce da una necessità semplice: eliminare la "decision fatigue" nel tempo libero. La metafora dell\'arrampicata aiuta a tracciare obiettivi a lungo termine (Vette) e suddividerli in passaggi concreti (Campi).',
+      aboutDesc1:
+        'LevelUp nasce da una necessità semplice: eliminare la "decision fatigue" nel tempo libero. La metafora dell\'arrampicata aiuta a tracciare obiettivi a lungo termine (Vette) e suddividerli in passaggi concreti (Campi).',
       aboutDesc2: 'Questa app è 100% Open Source, creata da sviluppatori per tutti.',
       starGithub: 'Metti una stella su GitHub',
       submitIssue: 'Aggiungi una Issue',
@@ -363,15 +377,20 @@ const translations = {
     },
     onboarding: {
       slide1Title: 'Le tue Vette',
-      slide1Desc: 'Tocca + per creare una Vetta (obiettivo). Dividila in Campi (tappe) e scalala! In alto vedi Altitudine Totale e Streak.',
+      slide1Desc:
+        'Tocca + per creare una Vetta (obiettivo). Dividila in Campi (tappe) e scalala! In alto vedi Altitudine Totale e Streak.',
       slide2Title: 'Blocchi & Categorie',
-      slide2Desc: 'Gestisci le tue attività. Crei prima le Categorie e poi i Blocchi da assegnare. Toccali per modificarli o archiviarli.',
+      slide2Desc:
+        'Gestisci le tue attività. Crei prima le Categorie e poi i Blocchi da assegnare. Toccali per modificarli o archiviarli.',
       slide3Title: 'Il Planner',
-      slide3Desc: 'Qui programmi i blocchi nella griglia settimanale con una descrizione. Usa "Copia Settimana Precedente" per fare in fretta!',
+      slide3Desc:
+        'Qui programmi i blocchi nella griglia settimanale con una descrizione. Usa "Copia Settimana Precedente" per fare in fretta!',
       slide4Title: 'La tua Giornata',
-      slide4Desc: 'Ogni mattina apri Oggi e segui il piano. Completa i blocchi programmati per accumulare altitudine e conquistare le tue vette!',
+      slide4Desc:
+        'Ogni mattina apri Oggi e segui il piano. Completa i blocchi programmati per accumulare altitudine e conquistare le tue vette!',
       slide5Title: 'Impostazioni & Dati',
-      slide5Desc: 'Cambia lingua o esporta i tuoi dati in un backup JSON per non perdere mai i progressi.',
+      slide5Desc:
+        'Cambia lingua o esporta i tuoi dati in un backup JSON per non perdere mai i progressi.',
       dismissBtn: 'Inizia a Scalare',
       skip: 'Salta',
     },
@@ -482,7 +501,8 @@ const translations = {
       categoryBtn: 'Kategorie',
       blockBtn: '🧩 Block',
       archiveCategoryTitle: 'Kategorie archivieren',
-      archiveCategoryMsg: 'Möchtest du diese Kategorie wirklich archivieren? Sie wird nicht mehr unter den aktiven Kategorien angezeigt, aber historische Daten bleiben erhalten.',
+      archiveCategoryMsg:
+        'Möchtest du diese Kategorie wirklich archivieren? Sie wird nicht mehr unter den aktiven Kategorien angezeigt, aber historische Daten bleiben erhalten.',
       archive: 'Archivieren',
       selectIcon: 'Icon auswählen',
       searchIcon: 'Icon suchen...',
@@ -493,9 +513,11 @@ const translations = {
       archiveBlockMsg: 'Möchtest du wirklich archivieren:',
       archiveBtn: 'Archivieren',
       deleteCategoryTitle: 'Kategorie dauerhaft löschen',
-      deleteCategoryMsg: 'WARNUNG: Das endgültige Löschen dieser Kategorie führt zum unwiderruflichen Verlust aller damit verknüpften historischen Daten (abgeschlossene Stunden/Höhenmeter). Möchtest du wirklich fortfahren?',
+      deleteCategoryMsg:
+        'WARNUNG: Das endgültige Löschen dieser Kategorie führt zum unwiderruflichen Verlust aller damit verknüpften historischen Daten (abgeschlossene Stunden/Höhenmeter). Möchtest du wirklich fortfahren?',
       deleteBlockTitlePerm: 'Block dauerhaft löschen',
-      deleteBlockMsgPerm: 'WARNUNG: Das endgültige Löschen dieses Blocks führt zum unwiderruflichen Verlust aller damit verknüpften historischen Daten. Möchtest du wirklich fortfahren?',
+      deleteBlockMsgPerm:
+        'WARNUNG: Das endgültige Löschen dieses Blocks führt zum unwiderruflichen Verlust aller damit verknüpften historischen Daten. Möchtest du wirklich fortfahren?',
     },
     today: {
       title: 'Heute',
@@ -517,7 +539,8 @@ const translations = {
       selectLanguage: 'Sprache auswählen',
       changingLanguage: 'Sprache wird geändert...',
       backupTitle: 'Backup & Daten',
-      backupDesc: 'Exportiere alle deine Daten (Gipfel, Kategorien, Blöcke) im JSON-Format. Du kannst sie auf Google Drive speichern oder dir als Sicherheitskopie per E-Mail senden.',
+      backupDesc:
+        'Exportiere alle deine Daten (Gipfel, Kategorien, Blöcke) im JSON-Format. Du kannst sie auf Google Drive speichern oder dir als Sicherheitskopie per E-Mail senden.',
       exportBtn: 'JSON-Backup exportieren',
       importBtn: 'JSON-Backup importieren',
       importing: 'Wird importiert...',
@@ -530,8 +553,10 @@ const translations = {
       exportErrorTitle: 'Fehler',
       exportErrorMsg: 'Fehler beim Exportieren der Daten.',
       aboutTitle: 'Über LevelUp',
-      aboutDesc1: 'LevelUp entstand aus einem einfachen Bedürfnis: Entscheidungsmüdigkeit in der Freizeit zu beseitigen. Die Bergsteiger-Metapher hilft dabei, langfristige Ziele (Gipfel) zu verfolgen und in konkrete Schritte (Camps) zu unterteilen.',
-      aboutDesc2: 'Diese App ist zu 100 % Open Source und wurde von Entwicklern für alle geschaffen.',
+      aboutDesc1:
+        'LevelUp entstand aus einem einfachen Bedürfnis: Entscheidungsmüdigkeit in der Freizeit zu beseitigen. Die Bergsteiger-Metapher hilft dabei, langfristige Ziele (Gipfel) zu verfolgen und in konkrete Schritte (Camps) zu unterteilen.',
+      aboutDesc2:
+        'Diese App ist zu 100 % Open Source und wurde von Entwicklern für alle geschaffen.',
       starGithub: 'Mit Stern auf GitHub markieren',
       submitIssue: 'Problem melden',
       feedbackPlayStore: 'Feedback im Play Store hinterlassen (WIP)',
@@ -539,22 +564,27 @@ const translations = {
     },
     onboarding: {
       slide1Title: 'Gipfel & Ziele',
-      slide1Desc: 'Verfolge deine langfristigen Ziele. Unterteile sie in Camps (Meilensteine) und steige zum Gipfel auf! Oben siehst du deine Gesamthöhe und deinen Tages-Streak.',
+      slide1Desc:
+        'Verfolge deine langfristigen Ziele. Unterteile sie in Camps (Meilensteine) und steige zum Gipfel auf! Oben siehst du deine Gesamthöhe und deinen Tages-Streak.',
       slide2Title: 'Blöcke & Kategorien',
-      slide2Desc: 'Hier definierst du deine wöchentlichen Aktivitäten. Gruppiere sie in Kategorien und erstelle Blöcke für bestimmte Aufgaben. Tippe darauf, um sie zu bearbeiten oder zu archivieren.',
+      slide2Desc:
+        'Hier definierst du deine wöchentlichen Aktivitäten. Gruppiere sie in Kategorien und erstelle Blöcke für bestimmte Aufgaben. Tippe darauf, um sie zu bearbeiten oder zu archivieren.',
       slide3Title: 'Der Planer',
-      slide3Desc: 'Plane deine Blöcke in einem wöchentlichen Raster. Tippe auf ein Zeitfenster, um einen Block mit optionaler Beschreibung hinzuzufügen. Nutze "Vorherige Woche kopieren", um Zeit zu sparen!',
+      slide3Desc:
+        'Plane deine Blöcke in einem wöchentlichen Raster. Tippe auf ein Zeitfenster, um einen Block mit optionaler Beschreibung hinzuzufügen. Nutze "Vorherige Woche kopieren", um Zeit zu sparen!',
       slide4Title: 'Dein Tag (Heute)',
-      slide4Desc: 'Öffne jeden Morgen "Heute" und folge einfach dem Plan. Schließe deine geplanten Blöcke ab, um Höhe zu gewinnen und deine Gipfel zu bezwingen!',
+      slide4Desc:
+        'Öffne jeden Morgen "Heute" und folge einfach dem Plan. Schließe deine geplanten Blöcke ab, um Höhe zu gewinnen und deine Gipfel zu bezwingen!',
       slide5Title: 'Einstellungen & Daten',
-      slide5Desc: 'Ändere die Sprache oder exportiere/importiere dein JSON-Backup, um deine Fortschritte nie zu verlieren.',
+      slide5Desc:
+        'Ändere die Sprache oder exportiere/importiere dein JSON-Backup, um deine Fortschritte nie zu verlieren.',
       dismissBtn: 'Aufstieg beginnen',
       skip: 'Überspringen',
     },
   },
   fr: {
     tabs: {
-      today: 'Aujourd\'hui',
+      today: "Aujourd'hui",
       peaks: 'Sommets',
       planner: 'Planning',
       blocks: 'Blocs',
@@ -598,7 +628,7 @@ const translations = {
       peakName: 'Nom du sommet',
       descOptional: 'Description (optionnel)',
       createPeak: 'Créer le sommet',
-      altHistoryTitle: 'Historique d\'altitude par catégorie',
+      altHistoryTitle: "Historique d'altitude par catégorie",
       noHistoricalData: 'Aucune donnée historique.',
       deletedArchived: 'Supprimé/Archivé',
       peaksHistoryTitle: 'Historique des sommets',
@@ -628,7 +658,7 @@ const translations = {
       copyBtn: 'Copier la semaine précédente',
       scheduleBlock: 'Planifier un bloc',
       startTime: 'Heure de début :',
-      createFirst: 'Créez d\'abord un bloc d\'activité !',
+      createFirst: "Créez d'abord un bloc d'activité !",
       goToManage: 'Aller à Gérer les blocs',
       markTodo: 'Marquer à faire',
       markDone: 'Terminé',
@@ -641,7 +671,7 @@ const translations = {
       title: 'Blocs & Catégories',
       categoriesInfo: 'Appuyez sur une catégorie pour modifier les heures cibles.',
       targetHours: 'h cible',
-      activityBlocks: 'Blocs d\'activité' ,
+      activityBlocks: "Blocs d'activité",
       noBlocks: 'Aucun bloc défini. Créez-en un avec le bouton ci-dessous.',
       newBlock: 'Nouveau bloc',
       newCategory: 'Nouvelle catégorie',
@@ -649,16 +679,17 @@ const translations = {
       category: 'Catégorie',
       duration: 'Durée',
       editCategory: 'Modifier la catégorie',
-      targetHoursInput: 'Objectif d\'heures hebdomadaires (ex. 20)',
+      targetHoursInput: "Objectif d'heures hebdomadaires (ex. 20)",
       deleteBlockTitle: 'Supprimer le bloc',
       deleteBlockMsg: 'Voulez-vous vraiment supprimer',
-      targetHoursWeekly: 'Objectif d\'heures hebdomadaires :',
+      targetHoursWeekly: "Objectif d'heures hebdomadaires :",
       freeHours: 'libres',
       whatToCreate: 'Que voulez-vous créer ?',
       categoryBtn: 'Catégorie',
       blockBtn: '🧩 Bloc',
       archiveCategoryTitle: 'Archiver la catégorie',
-      archiveCategoryMsg: 'Voulez-vous vraiment archiver cette catégorie ? Elle ne sera plus visible parmi les catégories actives, mais les données historiques seront conservées.',
+      archiveCategoryMsg:
+        'Voulez-vous vraiment archiver cette catégorie ? Elle ne sera plus visible parmi les catégories actives, mais les données historiques seront conservées.',
       archive: 'Archiver',
       selectIcon: 'Sélectionner une icône',
       searchIcon: 'Rechercher une icône...',
@@ -669,12 +700,14 @@ const translations = {
       archiveBlockMsg: 'Voulez-vous vraiment archiver',
       archiveBtn: 'Archiver',
       deleteCategoryTitle: 'Supprimer définitivement la catégorie',
-      deleteCategoryMsg: 'ATTENTION : La suppression définitive de cette catégorie entraînera la perte irréversible de tout l\'historique (heures/mètres réalisés) associé. Voulez-vous vraiment continuer ?',
+      deleteCategoryMsg:
+        "ATTENTION : La suppression définitive de cette catégorie entraînera la perte irréversible de tout l'historique (heures/mètres réalisés) associé. Voulez-vous vraiment continuer ?",
       deleteBlockTitlePerm: 'Supprimer définitivement le bloc',
-      deleteBlockMsgPerm: 'ATTENTION : La suppression définitive de ce bloc entraînera la perte irréversible de tout l\'historique associé. Voulez-vous vraiment continuer ?',
+      deleteBlockMsgPerm:
+        "ATTENTION : La suppression définitive de ce bloc entraînera la perte irréversible de tout l'historique associé. Voulez-vous vraiment continuer ?",
     },
     today: {
-      title: 'Aujourd\'hui',
+      title: "Aujourd'hui",
       greetingMorning: 'Bonjour',
       greetingAfternoon: 'Bon après-midi',
       greetingEvening: 'Bonsoir',
@@ -683,8 +716,8 @@ const translations = {
       afternoon: 'Après-midi',
       evening: 'Soir',
       noBlocks: 'Aucun bloc',
-      emptyToday: 'Aucun bloc pour aujourd\'hui. Allez dans le Planning !',
-      completedToday: 'heures terminées aujourd\'hui',
+      emptyToday: "Aucun bloc pour aujourd'hui. Allez dans le Planning !",
+      completedToday: "heures terminées aujourd'hui",
       yourDay: 'Votre journée',
       todayProgress: 'Progression du jour',
     },
@@ -693,21 +726,24 @@ const translations = {
       selectLanguage: 'Sélectionner la langue',
       changingLanguage: 'Changement de langue...',
       backupTitle: 'Sauvegarde & Données',
-      backupDesc: 'Exportez toutes vos données (Sommets, Catégories, Blocs) au format JSON. Vous pouvez les enregistrer sur Google Drive ou vous les envoyer par e-mail en tant que sauvegarde de sécurité.',
+      backupDesc:
+        'Exportez toutes vos données (Sommets, Catégories, Blocs) au format JSON. Vous pouvez les enregistrer sur Google Drive ou vous les envoyer par e-mail en tant que sauvegarde de sécurité.',
       exportBtn: 'Exporter la sauvegarde JSON',
       importBtn: 'Importer la sauvegarde JSON',
       importing: 'Importation...',
       importConfirmTitle: 'Importer la sauvegarde',
       importConfirmMsg: 'Êtes-vous sûr ? Cette action ÉCRASERA toutes vos données actuelles.',
       importSuccess: 'Sauvegarde importée avec succès !',
-      importError: 'Échec de l\'importation de la sauvegarde.',
+      importError: "Échec de l'importation de la sauvegarde.",
       exportSuccessTitle: 'Succès',
       exportSuccessMsg: 'Sauvegarde exportée avec succès !',
       exportErrorTitle: 'Erreur',
-      exportErrorMsg: 'Échec de l\'exportation des données.',
+      exportErrorMsg: "Échec de l'exportation des données.",
       aboutTitle: 'À propos de LevelUp',
-      aboutDesc1: 'LevelUp est né d\'un besoin simple : éliminer la fatigue décisionnelle pendant le temps libre. La métaphore de l\'escalade permet de suivre des objectifs à long terme (Sommets) et de les décomposer en étapes concrètes (Camps).',
-      aboutDesc2: 'Cette application est 100 % Open Source et conçue par des développeurs pour tous.',
+      aboutDesc1:
+        "LevelUp est né d'un besoin simple : éliminer la fatigue décisionnelle pendant le temps libre. La métaphore de l'escalade permet de suivre des objectifs à long terme (Sommets) et de les décomposer en étapes concrètes (Camps).",
+      aboutDesc2:
+        'Cette application est 100 % Open Source et conçue par des développeurs pour tous.',
       starGithub: 'Mettre une étoile sur GitHub',
       submitIssue: 'Signaler un problème',
       feedbackPlayStore: 'Laisser un avis sur le Play Store (WIP)',
@@ -715,16 +751,21 @@ const translations = {
     },
     onboarding: {
       slide1Title: 'Sommets & Objectifs',
-      slide1Desc: 'Suivez vos objectifs à long terme. Décomposez-les en Camps (jalons) et grimpez jusqu\'au sommet ! En haut, retrouvez votre Altitude totale et votre Série de jours.',
+      slide1Desc:
+        "Suivez vos objectifs à long terme. Décomposez-les en Camps (jalons) et grimpez jusqu'au sommet ! En haut, retrouvez votre Altitude totale et votre Série de jours.",
       slide2Title: 'Blocs & Catégories',
-      slide2Desc: 'Définissez vos activités hebdomadaires. Regroupez-les en Catégories et créez des Blocs pour des tâches précises. Appuyez dessus pour les modifier ou les archiver.',
+      slide2Desc:
+        'Définissez vos activités hebdomadaires. Regroupez-les en Catégories et créez des Blocs pour des tâches précises. Appuyez dessus pour les modifier ou les archiver.',
       slide3Title: 'Le Planning',
-      slide3Desc: 'Planifiez vos blocs sur une grille hebdomadaire. Appuyez sur un créneau pour ajouter un bloc avec une description optionnelle. Utilisez "Copier la semaine précédente" pour gagner du temps !',
-      slide4Title: 'Votre Journée (Aujourd\'hui)',
-      slide4Desc: 'Chaque matin, ouvrez Aujourd\'hui et suivez le plan. Complétez vos blocs planifiés pour gagner de l\'altitude et conquérir vos sommets !',
+      slide3Desc:
+        'Planifiez vos blocs sur une grille hebdomadaire. Appuyez sur un créneau pour ajouter un bloc avec une description optionnelle. Utilisez "Copier la semaine précédente" pour gagner du temps !',
+      slide4Title: "Votre Journée (Aujourd'hui)",
+      slide4Desc:
+        "Chaque matin, ouvrez Aujourd'hui et suivez le plan. Complétez vos blocs planifiés pour gagner de l'altitude et conquérir vos sommets !",
       slide5Title: 'Paramètres & Données',
-      slide5Desc: 'Changez de langue ou exportez/importez votre sauvegarde JSON pour ne jamais perdre vos progrès.',
-      dismissBtn: 'Commencer l\'ascension',
+      slide5Desc:
+        'Changez de langue ou exportez/importez votre sauvegarde JSON pour ne jamais perdre vos progrès.',
+      dismissBtn: "Commencer l'ascension",
       skip: 'Passer',
     },
   },
@@ -834,7 +875,8 @@ const translations = {
       categoryBtn: 'Categoría',
       blockBtn: '🧩 Bloque',
       archiveCategoryTitle: 'Archivar Categoría',
-      archiveCategoryMsg: '¿Seguro que quieres archivar esta categoría? Ya no aparecerá entre las activas, pero se conservará el historial.',
+      archiveCategoryMsg:
+        '¿Seguro que quieres archivar esta categoría? Ya no aparecerá entre las activas, pero se conservará el historial.',
       archive: 'Archivar',
       selectIcon: 'Seleccionar un icono',
       searchIcon: 'Buscar icono...',
@@ -845,9 +887,11 @@ const translations = {
       archiveBlockMsg: '¿Seguro que quieres archivar',
       archiveBtn: 'Archivar',
       deleteCategoryTitle: 'Eliminar Categoría Definitivamente',
-      deleteCategoryMsg: 'ADVERTENCIA: Eliminar definitivamente esta categoría provocará la pérdida irreversible de todo el historial asociado (horas/metros completados). ¿Seguro que quieres continuar?',
+      deleteCategoryMsg:
+        'ADVERTENCIA: Eliminar definitivamente esta categoría provocará la pérdida irreversible de todo el historial asociado (horas/metros completados). ¿Seguro que quieres continuar?',
       deleteBlockTitlePerm: 'Eliminar Bloque Definitivamente',
-      deleteBlockMsgPerm: 'ADVERTENCIA: Eliminar definitivamente este bloque provocará la pérdida irreversible de todo el historial asociado. ¿Seguro que quieres continuar?',
+      deleteBlockMsgPerm:
+        'ADVERTENCIA: Eliminar definitivamente este bloque provocará la pérdida irreversible de todo el historial asociado. ¿Seguro que quieres continuar?',
     },
     today: {
       title: 'Hoy',
@@ -869,7 +913,8 @@ const translations = {
       selectLanguage: 'Seleccionar idioma',
       changingLanguage: 'Cambiando idioma...',
       backupTitle: 'Copia de seguridad y Datos',
-      backupDesc: 'Exporta todos tus datos (Cimas, Categorías, Bloques) en formato JSON. Puedes guardarlo en Google Drive o enviártelo por correo como copia de seguridad.',
+      backupDesc:
+        'Exporta todos tus datos (Cimas, Categorías, Bloques) en formato JSON. Puedes guardarlo en Google Drive o enviártelo por correo como copia de seguridad.',
       exportBtn: 'Exportar copia JSON',
       importBtn: 'Importar copia JSON',
       importing: 'Importando...',
@@ -882,8 +927,10 @@ const translations = {
       exportErrorTitle: 'Error',
       exportErrorMsg: 'Error al exportar los datos.',
       aboutTitle: 'Acerca de LevelUp',
-      aboutDesc1: 'LevelUp nació de una necesidad sencilla: eliminar la fatiga de decisión en el tiempo libre. La metáfora de la escalada ayuda a seguir objetivos a largo plazo (Cimas) y dividirlos en pasos concretos (Campamentos).',
-      aboutDesc2: 'Esta aplicación es 100% de código abierto y creada por desarrolladores para todos.',
+      aboutDesc1:
+        'LevelUp nació de una necesidad sencilla: eliminar la fatiga de decisión en el tiempo libre. La metáfora de la escalada ayuda a seguir objetivos a largo plazo (Cimas) y dividirlos en pasos concretos (Campamentos).',
+      aboutDesc2:
+        'Esta aplicación es 100% de código abierto y creada por desarrolladores para todos.',
       starGithub: 'Dar una estrella en GitHub',
       submitIssue: 'Informar de un problema',
       feedbackPlayStore: 'Dejar una reseña en Play Store (WIP)',
@@ -891,15 +938,20 @@ const translations = {
     },
     onboarding: {
       slide1Title: 'Cimas y Objetivos',
-      slide1Desc: 'Sigue tus objetivos a largo plazo. ¡Divídelos en Campamentos (hitos) y asciende a la cima! En la parte superior verás tu Altitud total y tu Racha de días.',
+      slide1Desc:
+        'Sigue tus objetivos a largo plazo. ¡Divídelos en Campamentos (hitos) y asciende a la cima! En la parte superior verás tu Altitud total y tu Racha de días.',
       slide2Title: 'Bloques y Categorías',
-      slide2Desc: 'Aquí defines tus actividades semanales. Agrúpalas en Categorías y crea Bloques para tareas específicas. Tócalos para editarlos o archivarlos.',
+      slide2Desc:
+        'Aquí defines tus actividades semanales. Agrúpalas en Categorías y crea Bloques para tareas específicas. Tócalos para editarlos o archivarlos.',
       slide3Title: 'El Planificador',
-      slide3Desc: 'Programa tus bloques en una cuadrícula semanal. Toca una franja horaria para añadir un bloque con descripción opcional. ¡Usa "Copiar semana anterior" para ahorrar tiempo!',
+      slide3Desc:
+        'Programa tus bloques en una cuadrícula semanal. Toca una franja horaria para añadir un bloque con descripción opcional. ¡Usa "Copiar semana anterior" para ahorrar tiempo!',
       slide4Title: 'Tu Día (Hoy)',
-      slide4Desc: 'Cada mañana abre Hoy y sigue el plan. ¡Completa tus bloques programados para ganar altitud y conquistar tus cimas!',
+      slide4Desc:
+        'Cada mañana abre Hoy y sigue el plan. ¡Completa tus bloques programados para ganar altitud y conquistar tus cimas!',
       slide5Title: 'Ajustes y Datos',
-      slide5Desc: 'Cambia el idioma o exporta/importa tu copia de seguridad JSON para no perder nunca tu progreso.',
+      slide5Desc:
+        'Cambia el idioma o exporta/importa tu copia de seguridad JSON para no perder nunca tu progreso.',
       dismissBtn: 'Empezar a escalar',
       skip: 'Saltar',
     },
