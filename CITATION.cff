@@ -5,7 +5,7 @@ authors:
     given-names: 'Giovanni'
     orcid: 'https://orcid.org/0009-0000-8900-9586'
 title: 'LevelUp: Defeating Decision Fatigue via Gamified Time Management'
-version: 1.1.1
+version: 1.1.2
 date-released: '2026-09-25'
 url: 'https://github.com/GiZano/LevelUp'
 repository-code: 'https://github.com/GiZano/LevelUp'
