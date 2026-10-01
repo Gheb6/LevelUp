@@ -65,6 +65,7 @@ export interface Category {
   emoji: string;
   targetHoursPerWeek: number;
   isArchived?: boolean;
+  isCustomName?: boolean;
 }
 
 export interface BlockTemplate {

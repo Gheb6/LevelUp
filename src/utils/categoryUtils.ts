@@ -43,6 +43,8 @@ const DEFAULT_CATEGORY_MAP: Record<string, { key: string; defaults: string[] }> 
 
 export function getCategoryDisplayName(cat?: Category | null): string {
   if (!cat) return '';
+  if (cat.isCustomName) return cat.name;
+
   const def = DEFAULT_CATEGORY_MAP[cat.id];
   if (def && def.defaults.some((d) => d.toLowerCase() === cat.name.trim().toLowerCase())) {
     return t(def.key);

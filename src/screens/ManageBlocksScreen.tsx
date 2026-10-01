@@ -125,11 +125,17 @@ export default function ManageBlocksScreen({ navigation }: any) {
     const hours = parseInt(catTargetHours, 10);
     if (!isNaN(hours)) {
       if (editCatId) {
+        const existingCat = categories.find((c) => c.id === editCatId);
+        const nameChanged = existingCat
+          ? catName.trim() !== getCategoryDisplayName(existingCat)
+          : false;
+
         editCategory(editCatId, {
           name: catName.trim() || undefined,
           emoji: catEmoji,
           color: catColor,
           targetHoursPerWeek: hours,
+          ...(nameChanged ? { isCustomName: true } : {}),
         });
       } else if (catName.trim()) {
         addCategory(catName.trim(), catEmoji, catColor, hours);

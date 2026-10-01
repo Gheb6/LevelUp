@@ -202,6 +202,7 @@ export function PlannerProvider({ children }: { children: React.ReactNode }) {
         const merged = cats.map((c) => {
           let name = c.name;
           if (
+            !c.isCustomName &&
             (c.id === 'lettura' || c.id === 'progetto') &&
             legacyOtherNames.includes(name.trim().toLowerCase())
           ) {
