@@ -16,11 +16,14 @@ import PeakCard from '../components/PeakCard';
 import OnboardingModal from '../components/OnboardingModal';
 import type { RootStackParamList } from '../types/navigation';
 import { getCategoryDisplayName } from '../utils/categoryUtils';
+import { formatCompletionDate } from '../utils/date';
+import { useLocale } from '../store/LocaleContext';
 
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 export default function HomeScreen({ navigation }: HomeProps) {
   const { colors } = useThemeColors();
+  const { locale } = useLocale();
   const { peaks, streak, lastActiveDate, totalCompletedHours, addPeak } = usePeaks();
 
   const [altModalVisible, setAltModalVisible] = useState(false);
@@ -256,9 +259,24 @@ export default function HomeScreen({ navigation }: HomeProps) {
                       color={colors.primary}
                       style={{ marginRight: 8 }}
                     />
-                    <Text style={{ flex: 1, color: colors.text, fontSize: 16, fontWeight: 'bold' }}>
-                      {p.name}
-                    </Text>
+                    <View style={{ flex: 1 }}>
+                      <Text style={{ color: colors.text, fontSize: 16, fontWeight: 'bold' }}>
+                        {p.name}
+                      </Text>
+                      {formatCompletionDate(p.completedAt, locale) && (
+                        <Text
+                          style={{
+                            color: colors.textSecondary,
+                            fontSize: FontSize.sm,
+                            marginTop: Spacing.xs,
+                          }}
+                        >
+                          {t('home.completedOn', {
+                            date: formatCompletionDate(p.completedAt, locale) || '',
+                          })}
+                        </Text>
+                      )}
+                    </View>
                     <Text
                       style={{
                         color: colors.success || '#10B981',

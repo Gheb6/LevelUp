@@ -20,12 +20,15 @@ import { peakProgress, isPeakComplete } from '../utils/stats';
 import CampItem from '../components/CampItem';
 import MountainSvg from '../components/MountainSvg';
 import type { RootStackParamList } from '../types/navigation';
+import { formatCompletionDate } from '../utils/date';
+import { useLocale } from '../store/LocaleContext';
 
 type PeakDetailProps = NativeStackScreenProps<RootStackParamList, 'PeakDetail'>;
 
 export default function PeakDetailScreen({ navigation, route }: PeakDetailProps) {
   const { peakId } = route.params;
   const { colors } = useThemeColors();
+  const { locale } = useLocale();
   const { peaks, addCamp, toggleCamp, deleteCamp, deletePeak } = usePeaks();
 
   const [campName, setCampName] = useState('');
@@ -74,6 +77,7 @@ export default function PeakDetailScreen({ navigation, route }: PeakDetailProps)
   const totalCamps = peak.camps.length;
   const doneCamps = peak.camps.filter((c) => c.done).length;
   const pct = totalCamps > 0 ? Math.round((doneCamps / totalCamps) * 100) : 0;
+  const completedDate = complete ? formatCompletionDate(peak.completedAt, locale) : null;
 
   const handleAddCamp = () => {
     const trimmed = campName.trim();
@@ -123,7 +127,9 @@ export default function PeakDetailScreen({ navigation, route }: PeakDetailProps)
                   style={{ marginRight: 8 }}
                 />
                 <Text style={[styles.bannerText, { color: colors.primary }]}>
-                  {t('peakDetail.conquered')}
+                  {completedDate
+                    ? t('peakDetail.conqueredOn', { date: completedDate })
+                    : t('peakDetail.conquered')}
                 </Text>
               </View>
             )}
@@ -200,12 +206,16 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.sm,
   },
   banner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.sm,
     paddingVertical: Spacing.sm,
     paddingHorizontal: Spacing.md,
     borderRadius: BorderRadius.md,
     marginTop: Spacing.xs,
   },
   bannerText: {
+    flex: 1,
     fontSize: FontSize.md,
     fontWeight: '600',
   },
