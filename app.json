@@ -11,6 +11,7 @@
       "buildNumber": "3"
     },
     "android": {
+      "softwareKeyboardLayoutMode": "pan",
       "package": "com.gizano.levelup",
       "versionCode": 4,
       "adaptiveIcon": {
