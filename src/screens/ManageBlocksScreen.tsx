@@ -697,7 +697,17 @@ export default function ManageBlocksScreen({ navigation }: any) {
                         borderColor: selected ? c.color : colors.border,
                       },
                     ]}
-                    onPress={() => setSelectedCategoryId(c.id)}
+                    onPress={() => {
+                      const prevCat = selectedCategoryId
+                        ? getCategoryById(selectedCategoryId)
+                        : null;
+                      const prevCatName = prevCat ? getCategoryDisplayName(prevCat) : '';
+
+                      if (!blockName.trim() || blockName.trim() === prevCatName) {
+                        setBlockName(getCategoryDisplayName(c));
+                      }
+                      setSelectedCategoryId(c.id);
+                    }}
                   >
                     <Text
                       style={[styles.chipText, { color: selected ? '#fff' : colors.text }]}
