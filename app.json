@@ -2,18 +2,18 @@
   "expo": {
     "name": "LevelUp",
     "slug": "levelup",
-    "version": "1.1.2",
+    "version": "1.2.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
     "ios": {
       "supportsTablet": true,
-      "buildNumber": "3"
+      "buildNumber": "4"
     },
     "android": {
       "softwareKeyboardLayoutMode": "pan",
       "package": "com.gizano.levelup",
-      "versionCode": 4,
+      "versionCode": 5,
       "adaptiveIcon": {
         "backgroundColor": "#071A2F",
         "foregroundImage": "./assets/icon.png"
